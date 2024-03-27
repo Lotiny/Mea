@@ -1,0 +1,4 @@
+name: Mea
+version: '${project.version}'
+main: me.lotiny.mea.Mea
+authors: [Lotiny]

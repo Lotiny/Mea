@@ -1,0 +1,15 @@
+settings:
+  main-spawn-location: "world:0.0:100.0:0.0:0.0:0.0"
+  min-players: 6
+  max-players: 24
+deathmatch:
+  map: "Deathmatch"
+  target-players: 4
+chest-refill-time: 300
+breakable-blocks:
+  - LEAVES
+  - LEAVES_2
+  - GRASS
+  - LONG_GRASS
+  - RED_ROSE
+  - YELLOW_FLOWER
