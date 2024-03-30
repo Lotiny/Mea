@@ -78,8 +78,6 @@ public final class Mea extends JavaPlugin {
     @Override
     public void onDisable() {
         try {
-            gameManager.reset();
-
             for (Profile profile : profileManager.getAllData()) {
                 profileManager.saveData(profile);
             }

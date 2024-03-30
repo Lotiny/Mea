@@ -5,9 +5,9 @@ import me.lotiny.mea.Mea;
 import me.lotiny.mea.assets.GameMap;
 import me.lotiny.mea.utils.CC;
 import me.lotiny.mea.utils.ConfigFile;
-import me.lotiny.mea.utils.LocationSerialization;
+import me.lotiny.mea.utils.FileUtils;
 import me.lotiny.mea.utils.Utilities;
-import org.bukkit.Location;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -34,6 +34,8 @@ public class MapManager {
             Utilities.log("&cThere is no world to play yet. Please setup it.");
             return;
         }
+
+        deleteOldWorlds();
 
         int id = 1;
         for (String file : files) {
@@ -82,14 +84,17 @@ public class MapManager {
         return map;
     }
 
-    public String convertLocation(Location location) {
-        for (GameMap map : this.maps.values()) {
-            if (map.getWorld() == location.getWorld()) {
-                return LocationSerialization.serialize(location).replace(location.getWorld().getName(), map.getSource().getName());
-            }
+    public void deleteOldWorlds() {
+        String[] files = Bukkit.getWorldContainer().list();
+        if (files == null) {
+            return;
         }
 
-        return null;
+        for (String file : files) {
+            if (file.endsWith("_active")) {
+                FileUtils.delete(new File(Bukkit.getWorldContainer(), file));
+            }
+        }
     }
 
     public void createData(GameMap map) {

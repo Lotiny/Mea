@@ -33,12 +33,9 @@ public class ShutdownTask extends BukkitRunnable {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.kickPlayer("Game ended.");
                 }
-            });
 
-            Tasks.runLater(() -> {
-                plugin.getGameManager().reset();
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stop");
-            }, 20L);
+            });
         }
     }
 }

@@ -46,7 +46,7 @@ public class GameMap {
             return true;
         }
 
-        String worldFolder = source.getName() + "_" + System.currentTimeMillis();
+        String worldFolder = source.getName() + "_active";
         try {
             FileUtils.copy(source, new File(Bukkit.getWorldContainer().getParentFile(), worldFolder));
             Utilities.log("&aSuccessfully copy " + source.getName() + " to " + worldFolder);
