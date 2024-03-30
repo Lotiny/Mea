@@ -3,13 +3,8 @@ package me.lotiny.mea.listeners;
 import me.lotiny.mea.Mea;
 import me.lotiny.mea.managers.ChestManager;
 import me.lotiny.mea.profile.Profile;
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.TileEntity;
-import net.minecraft.server.v1_8_R3.TileEntityChest;
-import net.minecraft.server.v1_8_R3.World;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,46 +27,20 @@ public class ChestListener implements Listener {
             if (chestManager.hasBeenOpened(chest.getLocation())) {
                 return;
             }
-
-            String title = chest.getBlockInventory().getTitle();
-            if (title.startsWith("Tier")) {
-                chestManager.markAsOpened(chest.getLocation());
-                chestManager.fill(chest.getBlockInventory(), Integer.parseInt(title.split(" ")[1]));
-                return;
-            }
-
-            int chestTier = chest.getWorld() == plugin.getGameManager().getDeathMatchMap().getWorld() ? 3 : chestManager.randomChestTier();
-            World nmsWorld = ((CraftWorld) chest.getWorld()).getHandle();
-            TileEntity te = nmsWorld.getTileEntity(new BlockPosition(chest.getLocation().getBlockX(),
-                    chest.getLocation().getBlockY(),
-                    chest.getLocation().getBlockZ()));
-            ((TileEntityChest) te).a("Tier " + chestTier);
+            int tier = plugin.getChestManager().randomChestTier();
 
             chestManager.markAsOpened(chest.getLocation());
-            chestManager.fill(chest.getBlockInventory(), chestTier);
+            chestManager.fill(chest.getBlockInventory(), tier);
             profile.getStats().getChestOpened().increase();
         } else if (holder instanceof DoubleChest) {
             DoubleChest chest = (DoubleChest) holder;
             if (plugin.getChestManager().hasBeenOpened(chest.getLocation())) {
                 return;
             }
-
-            String title = chest.getInventory().getTitle();
-            if (title.startsWith("Tier")) {
-                chestManager.markAsOpened(chest.getLocation());
-                chestManager.fill(chest.getInventory(), Integer.parseInt(title.split(" ")[1]));
-                return;
-            }
-
-            int chestTier = chest.getWorld() == plugin.getGameManager().getDeathMatchMap().getWorld() ? 3 : chestManager.randomChestTier();
-            World nmsWorld = ((CraftWorld) chest.getWorld()).getHandle();
-            TileEntity te = nmsWorld.getTileEntity(new BlockPosition(chest.getLocation().getBlockX(),
-                    chest.getLocation().getBlockY(),
-                    chest.getLocation().getBlockZ()));
-            ((TileEntityChest) te).a("Tier " + chestTier);
+            int tier = plugin.getChestManager().randomChestTier();
 
             chestManager.markAsOpened(chest.getLocation());
-            chestManager.fill(chest.getInventory(), chestTier);
+            chestManager.fill(chest.getInventory(), tier);
             profile.getStats().getChestOpened().increase();
         }
     }

@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 public class LootItem {
@@ -17,7 +18,8 @@ public class LootItem {
     private final short durability;
     private final Map<Enchantment, Integer> enchantments = new HashMap<>();
 
-    private final int amount;
+    private final int minAmount;
+    private final int maxAmount;
 
     public LootItem(ConfigurationSection section) {
         Material material;
@@ -42,11 +44,23 @@ public class LootItem {
             }
         }
 
-        this.amount = section.getInt("Amount");
+        String[] args = section.getString("Amount").split("-");
+        this.minAmount = Integer.parseInt(args[0]);
+        if (args.length == 1) {
+            this.maxAmount = Integer.parseInt(args[0]);
+        } else {
+            this.maxAmount = Integer.parseInt(args[1]);
+        }
     }
 
     public ItemStack create() {
-        ItemStack item = new ItemStack(this.material, this.amount, this.durability);
+        ItemStack item;
+        if (this.minAmount == this.maxAmount) {
+            item = new ItemStack(this.material, this.minAmount, this.durability);
+        } else {
+            ThreadLocalRandom random = ThreadLocalRandom.current();
+            item = new ItemStack(this.material, random.nextInt(this.minAmount, this.maxAmount), this.durability);
+        }
 
         if (!this.enchantments.isEmpty()) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();

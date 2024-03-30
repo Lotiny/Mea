@@ -1,132 +1,130 @@
 Loot-Chests:
   Tier1:
-    Item-Amount: 5
+    Item-Amount:
+      Tier1: 5
     Chance: 70
   Tier2:
-    Item-Amount: 4
+    Item-Amount:
+      Tier1: 3
+      Tier2: 2
     Chance: 20
   Tier3:
-    Item-Amount: 4
+    Item-Amount:
+      Tier1: 3
+      Tier2: 1
+      Tier3: 1
     Chance: 10
 Loot-Items:
   Chest-Tier1:
     0:
       Material: "APPLE"
       Durability: 0
-      Amount: 3
+      Amount: 1-5
     1:
       Material: "GOLD_INGOT"
       Durability: 0
-      Amount: 8
+      Amount: 4-12
     2:
-      Material: "GOLD_INGOT"
-      Durability: 0
-      Amount: 4
-    3:
       Material: "FEATHER"
       Durability: 0
-      Amount: 4
-    4:
+      Amount: 1-6
+    3:
       Material: "DIAMOND"
       Durability: 0
       Amount: 1
-    5:
+    4:
       Material: "IRON_SWORD"
       Durability: 0
       Amount: 1
-    6:
+    5:
       Material: "FISHING_ROD"
       Durability: 0
       Amount: 1
-    7:
+    6:
       Material: "BOW"
       Durability: 0
       Amount: 1
-    8:
+    7:
       Material: "BREAD"
       Durability: 0
-      Amount: 3
-    9:
+      Amount: 1-4
+    8:
       Material: "PUMPKIN_PIE"
       Durability: 0
-      Amount: 3
-    10:
+      Amount: 2-4
+    9:
       Material: "WATER_BUCKET"
       Durability: 0
       Amount: 1
-    11:
+    10:
       Material: "LAVA_BUCKET"
       Durability: 0
       Amount: 1
-    12:
+    11:
       Material: "WEB"
       Durability: 0
-      Amount: 3
-    13:
+      Amount: 1-3
+    12:
       Material: "COBBLESTONE"
+      Durability: 0
+      Amount: 8-16
+    13:
+      Material: "WOOD"
       Durability: 0
       Amount: 8
     14:
-      Material: "COBBLESTONE"
+      Material: "WOOD"
       Durability: 0
-      Amount: 16
+      Amount: 8-16
     15:
-      Material: "WOOD"
-      Durability: 0
-      Amount: 8
-    16:
-      Material: "WOOD"
-      Durability: 0
-      Amount: 16
-    17:
       Material: "EXP_BOTTLE"
       Durability: 0
       Amount: 3
-    18:
+    16:
       Material: "STICK"
       Durability: 0
-      Amount: 3
-    19:
+      Amount: 1-3
+    17:
       Material: "FLINT"
       Durability: 0
-      Amount: 4
-    20:
+      Amount: 1-6
+    18:
       Material: "COOKED_BEEF"
       Durability: 0
-      Amount: 3
-    21:
+      Amount: 1-3
+    19:
       Material: "RAW_BEEF"
       Durability: 0
-      Amount: 2
-    22:
+      Amount: 1-4
+    20:
       Material: "COOKIE"
       Durability: 0
-      Amount: 4
-    23:
+      Amount: 1-4
+    21:
       Material: "ARROW"
       Durability: 0
-      Amount: 3
-    24:
+      Amount: 2-5
+    22:
       Material: "IRON_INGOT"
       Durability: 0
       Amount: 1
-    25:
+    23:
       Material: "MELON"
       Durability: 0
-      Amount: 2
-    26:
+      Amount: 1-4
+    24:
       Material: "GRILLED_PORK"
       Durability: 0
-      Amount: 2
-    27:
+      Amount: 2-4
+    25:
       Material: "PORK"
       Durability: 0
-      Amount: 3
+      Amount: 1-3
   Chest-Tier2:
     0:
       Material: "GOLDEN_APPLE"
       Durability: 0
-      Amount: 1
+      Amount: 1-2
     1:
       Material: "ENCHANTED_BOOK"
       Durability: 0
@@ -146,47 +144,11 @@ Loot-Items:
       Enchantment:
         ARROW_DAMAGE: 1
     4:
-      Material: "EXP_BOTTLE"
-      Durability: 0
-      Amount: 8
-    5:
-      Material: "FISHING_ROD"
-      Durability: 0
-      Amount: 1
-    6:
-      Material: "WEB"
-      Durability: 0
-      Amount: 3
-    7:
-      Material: "DIAMOND"
-      Durability: 0
-      Amount: 1
-    8:
-      Material: "ARROW"
-      Durability: 0
-      Amount: 7
-    9:
       Material: "ENCHANTED_BOOK"
       Durability: 0
       Amount: 1
       Enchantment:
         PROTECTION_PROJECTILE: 1
-    10:
-      Material: "GRILLED_PORK"
-      Durability: 0
-      Amount: 3
-    11:
-      Material: "PORK"
-      Durability: 0
-      Amount: 4
-    12:
-      Material: "COOKED_BEEF"
-      Durability: 0
-      Amount: 3
-    13:
-      Material: "MELON"
-      Durability: 0
-      Amount: 3
   Chest-Tier3:
     0:
       Material: "DIAMOND_SWORD"
@@ -209,76 +171,8 @@ Loot-Items:
       Durability: 0
       Amount: 1
     5:
-      Material: "DIAMOND"
-      Durability: 0
-      Amount: 1
-    6:
-      Material: "FLINT_AND_STEEL"
-      Durability: 0
-      Amount: 1
-    7:
-      Material: "EXP_BOTTLE"
-      Durability: 0
-      Amount: 10
-    8:
-      Material: "COOKED_BEEF"
-      Durability: 0
-      Amount: 6
-    9:
-      Material: "APPLE"
-      Durability: 0
-      Amount: 3
-    10:
-      Material: "PUMPKIN_PIE"
-      Durability: 0
-      Amount: 4
-    11:
-      Material: "IRON_INGOT"
-      Durability: 0
-      Amount: 2
-    12:
-      Material: "IRON_SWORD"
-      Durability: 0
-      Amount: 1
-    13:
-      Material: "GOLD_INGOT"
-      Durability: 0
-      Amount: 12
-    14:
-      Material: "ARROW"
-      Durability: 0
-      Amount: 10
-    15:
-      Material: "GOLDEN_APPLE"
-      Durability: 0
-      Amount: 2
-    16:
-      Material: "GRILLED_PORK"
-      Durability: 0
-      Amount: 3
-    17:
-      Material: "PORK"
-      Durability: 0
-      Amount: 2
-    18:
-      Material: "ENCHANTED_BOOK"
-      Durability: 0
-      Amount: 1
-      Enchantment:
-        PROTECTION_ENVIRONMENTAL: 1
-    19:
       Material: "ENCHANTED_BOOK"
       Durability: 0
       Amount: 1
       Enchantment:
         DAMAGE_ALL: 2
-    20:
-      Material: "ENCHANTED_BOOK"
-      Durability: 0
-      Amount: 1
-      Enchantment:
-        ARROW_DAMAGE: 1
-    21:
-      Material: "COOKIE"
-      Durability: 0
-      Amount: 4

@@ -2,18 +2,18 @@ package me.lotiny.mea.assets;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
 public class LootChest {
 
     private final int tier;
-    private final int itemAmount;
     private final int chance;
 
-    private final List<LootItem> lootItems = new ArrayList<>();
-
+    private final Map<Integer, Integer> items = new ConcurrentHashMap<>();
 }

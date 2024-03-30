@@ -18,8 +18,9 @@ public class ChestManager {
     private final Mea plugin;
     private final Random random;
 
-    private final Set<Location> openedChest = new HashSet<>();
+    private final Map<Location, Boolean> openedChest = new ConcurrentHashMap<>();
     private final Map<Integer, LootChest> lootChests = new ConcurrentHashMap<>();
+    private final Map<Integer, List<LootItem>> lootItems = new ConcurrentHashMap<>();
 
     private final int refillTime;
 
@@ -55,7 +56,7 @@ public class ChestManager {
     }
 
     public void setupLootItem(int chestTier) {
-        LootChest chest = new LootChest(chestTier, plugin.getLootItemsFile().getInt("Loot-Chests.Tier" + chestTier + ".Item-Amount"), plugin.getLootItemsFile().getInt("Loot-Chests.Tier" + chestTier + ".Chance"));
+        LootChest chest = new LootChest(chestTier, plugin.getLootItemsFile().getInt("Loot-Chests.Tier" + chestTier + ".Chance"));
         ConfigurationSection itemSection = plugin.getLootItemsFile().getConfigurationSection("Loot-Items.Chest-Tier" + chestTier);
 
         if (itemSection == null) {
@@ -63,9 +64,22 @@ public class ChestManager {
             return;
         }
 
+        List<LootItem> items = new ArrayList<>();
         for (String key : itemSection.getKeys(false)) {
             ConfigurationSection section = itemSection.getConfigurationSection(key);
-            chest.getLootItems().add(new LootItem(section));
+            items.add(new LootItem(section));
+        }
+        lootItems.put(chestTier, items);
+
+        ConfigurationSection chestSection = plugin.getLootItemsFile().getConfigurationSection("Loot-Chests.Tier" + chestTier + ".Item-Amount");
+        if (chestSection == null) {
+            Utilities.log("&cPlease setup your Tier" + chestTier + " chest in `loot-items.yml`");
+            return;
+        }
+
+        for (String key : chestSection.getKeys(false)) {
+            int tier = Integer.parseInt(key.replaceAll("\\D", ""));
+            chest.getItems().put(tier, chestSection.getInt(key));
         }
 
         this.lootChests.put(chestTier, chest);
@@ -77,20 +91,20 @@ public class ChestManager {
         Set<Integer> slots = new HashSet<>();
         LootChest lootChest = this.lootChests.get(chestTier);
 
-        int count = 0;
-        while (count < lootChest.getItemAmount()) {
-            int slot = random.nextInt(inventory.getSize());
+        lootChest.getItems().forEach((itemTier, itemAmount) -> {
+            for (int i = 0; i < itemAmount; i++) {
+                int slot = random.nextInt(inventory.getSize());
 
-            if (!slots.contains(slot)) {
-                slots.add(slot);
-                count++;
+                if (!slots.contains(slot)) {
+                    slots.add(slot);
 
-                List<LootItem> items = lootChest.getLootItems();
-                LootItem lootItem = items.get(random.nextInt(items.size()));
+                    List<LootItem> items = lootItems.get(itemTier);
+                    LootItem item = items.get(random.nextInt(items.size()));
 
-                inventory.setItem(slot, lootItem.create());
+                    inventory.setItem(slot, item.create());
+                }
             }
-        }
+        });
     }
 
     public int randomChestTier() {
@@ -103,18 +117,26 @@ public class ChestManager {
             }
         }
 
-        return 0;
+        return 1;
     }
 
     public void markAsOpened(Location location) {
-        this.openedChest.add(location);
+        this.openedChest.put(location, true);
     }
 
     public boolean hasBeenOpened(Location location) {
-        return this.openedChest.contains(location);
+        if (this.openedChest.containsKey(location)) {
+            return this.openedChest.get(location);
+        }
+
+        return false;
     }
 
     public void refillChests() {
-        this.openedChest.clear();
+        this.openedChest.forEach((location, bool) -> {
+            if (bool) {
+                this.openedChest.replace(location, false);
+            }
+        });
     }
 }
