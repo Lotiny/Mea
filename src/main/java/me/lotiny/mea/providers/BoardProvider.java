@@ -61,32 +61,36 @@ public class BoardProvider extends Thread implements Listener {
         }
     }
 
-    public List<String> getLines(Player player) {
-        List<String> lines = new ArrayList<>();
+    private List<String> getLines(Player player) {
+        List<String> toReturn = new ArrayList<>();
+        List<String> lines;
         Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
 
         if (plugin.getGameManager().isInGameState()) {
-            for (String line : plugin.getScoreboardFile().getStringList("scoreboard.game")) {
-                Replacement replacement = new Replacement(line);
-                replacement.add("<player>", player.getName());
-                replacement.add("<remaining>", plugin.getGameManager().getPlayersAmount());
-                replacement.add("<max_players>", plugin.getGameManager().getMaxPlayers());
-                replacement.add("<spectators>", plugin.getGameManager().getSpectatorsAmount());
-                replacement.add("<kills>", profile.getKills());
-
-                lines.add(replacement.toString());
-            }
+            lines = plugin.getScoreboardFile().getStringList("scoreboard.game");
         } else {
-            for (String line : plugin.getScoreboardFile().getStringList("scoreboard.lobby")) {
-                Replacement replacement = new Replacement(line);
-                replacement.add("<player>", player.getName());
-                replacement.add("<remaining>", plugin.getGameManager().getPlayersAmount());
-                replacement.add("<max_players>", plugin.getGameManager().getMaxPlayers());
-
-                lines.add(replacement.toString());
-            }
+            lines = plugin.getScoreboardFile().getStringList("scoreboard.lobby");
         }
 
-        return lines;
+        for (String line : lines) {
+            toReturn.add(formatLine(line, profile));
+        }
+
+        return toReturn;
+    }
+
+    private String formatLine(String line, Profile profile) {
+        Replacement replacement = new Replacement(line);
+
+        replacement.add("<player>", profile.getPlayerName());
+        replacement.add("<remaining>", plugin.getGameManager().getPlayersAmount());
+        replacement.add("<max_players>", plugin.getGameManager().getMaxPlayers());
+
+        if (plugin.getGameManager().isInGameState()) {
+            replacement.add("<spectators>", plugin.getGameManager().getSpectatorsAmount());
+            replacement.add("<kills>", profile.getKills());
+        }
+
+        return replacement.toString();
     }
 }

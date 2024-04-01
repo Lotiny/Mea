@@ -32,11 +32,11 @@ public class GameTask extends BukkitRunnable {
         }
 
         if (plugin.getGameManager().getPlayersAmount() <= plugin.getGameManager().getDeathMatchPlayers()) {
+            dm--;
+
             if (dm % 10 == 0 || dm <= 5) {
                 Utilities.sendMessage("&7Death match starts in &e" + dm + "&7 second(s).");
             }
-
-            --dm;
 
             if (dm == 0) {
                 plugin.getGameManager().getDeathMatchMap().getTeleportLocation().forEach(teleport -> {
@@ -59,7 +59,7 @@ public class GameTask extends BukkitRunnable {
             }
         }
 
-        ++seconds;
+        seconds++;
 
         if (seconds == plugin.getChestManager().getRefillTime()) {
             plugin.getChestManager().refillChests();

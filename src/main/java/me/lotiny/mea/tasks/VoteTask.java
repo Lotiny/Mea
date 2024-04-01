@@ -20,6 +20,8 @@ public class VoteTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        seconds--;
+
         if (seconds % 10 == 0 || seconds <= 5) {
             if (seconds == 10 && plugin.getGameManager().getMap() == null) {
                 GameMap map = plugin.getMapManager().getHighestVoteMap();
@@ -40,8 +42,6 @@ public class VoteTask extends BukkitRunnable {
 
             Utilities.sendMessage("&7Start teleport in &e" + seconds + "&7 second(s).");
         }
-
-        --seconds;
 
         if (seconds == 0) {
             new TeleportTask(plugin, plugin.getGameManager().getMap().getTeleportLocation());

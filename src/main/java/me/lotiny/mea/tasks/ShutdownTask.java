@@ -22,11 +22,11 @@ public class ShutdownTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        seconds--;
+
         if (seconds % 10 == 0 || seconds <= 5 && seconds > 0) {
             Utilities.sendMessage("&cServer restarting in " + seconds + " second(s).");
         }
-
-        --seconds;
 
         if (seconds == 0) {
             Tasks.run(() -> {

@@ -69,9 +69,4 @@ public class GameManager {
     public boolean isInGameState() {
         return this.state == GameState.GAME || this.state == GameState.DM || this.state == GameState.END;
     }
-
-    public void reset() {
-        FileUtils.delete(new File(Bukkit.getWorldContainer(), this.map.getName()));
-        FileUtils.delete(new File(Bukkit.getWorldContainer(), this.deathMatchMap.getName()));
-    }
 }

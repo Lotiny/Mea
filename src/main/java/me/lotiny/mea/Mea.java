@@ -21,6 +21,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -90,20 +91,19 @@ public final class Mea extends JavaPlugin {
 
     private void loadDependencies() {
         BukkitLibraryManager libraryManager = new BukkitLibraryManager(this);
-        List<Library> libraries = new ArrayList<>();
-
-        libraries.add(Library.builder().groupId("com{}fasterxml{}jackson.core").artifactId("jackson-core").version("2.16.1").build());
-        libraries.add(Library.builder().groupId("com{}fasterxml{}jackson.core").artifactId("jackson-databind").version("2.16.1").build());
-        libraries.add(Library.builder().groupId("com{}fasterxml{}jackson.core").artifactId("jackson-annotations").version("2.16.1").build());
-        libraries.add(Library.builder().groupId("org{}mongodb").artifactId("mongo-java-driver").version("3.12.14").build());
-        libraries.add(Library.builder().groupId("fr{}mrmicky").artifactId("fastboard").version("2.1.0").build());
-        libraries.add(Library.builder().groupId("com.github.Revxrsal.Lamp").artifactId("common").version("3.1.9").build());
-        libraries.add(Library.builder().groupId("com.github.Revxrsal.Lamp").artifactId("bukkit").version("3.1.9").build());
-        libraries.add(Library.builder().groupId("com.samjakob").artifactId("SpiGUI").version("v1.3.1").build());
-
         libraryManager.addJitPack();
         libraryManager.addMavenCentral();
-        libraries.forEach(libraryManager::loadLibrary);
+
+        Arrays.asList(
+                Library.builder().groupId("com{}fasterxml{}jackson{}core").artifactId("jackson-core").version("2.16.1").build(),
+                Library.builder().groupId("com{}fasterxml{}jackson{}core").artifactId("jackson-databind").version("2.16.1").build(),
+                Library.builder().groupId("com{}fasterxml{}jackson{}core").artifactId("jackson-annotations").version("2.16.1").build(),
+                Library.builder().groupId("org{}mongodb").artifactId("mongo-java-driver").version("3.12.14").build(),
+                Library.builder().groupId("fr{}mrmicky").artifactId("fastboard").version("2.1.0").build(),
+                Library.builder().groupId("com{}github{}Revxrsal{}Lamp").artifactId("common").version("3.1.9").build(),
+                Library.builder().groupId("com{}github{}Revxrsal{}Lamp").artifactId("bukkit").version("3.1.9").build(),
+                Library.builder().groupId("com{}samjakob").artifactId("SpiGUI").version("v1.3.1").build()
+        ).forEach(libraryManager::loadLibrary);
     }
 
     private void registerRecipes() {

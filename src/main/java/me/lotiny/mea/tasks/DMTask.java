@@ -25,11 +25,11 @@ public class DMTask extends BukkitRunnable {
             return;
         }
 
+        seconds--;
+
         if (seconds > 0) {
             Utilities.sendMessage("&7Deathmatch starts in &e" + seconds + "&7 second(s).");
         }
-
-        --seconds;
 
         if (seconds == 0) {
             Tasks.run(SitUtil::unsitAll);
