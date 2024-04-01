@@ -68,7 +68,6 @@ public class MapManager {
         if (map.vote(player)) {
             player.sendMessage(CC.translate("&aYou have vote to map: " + map.getName()));
         } else {
-            map.getVotedPlayers().remove(player.getUniqueId());
             player.sendMessage(CC.translate("&cYou have un-vote to map: " + map.getName()));
         }
     }

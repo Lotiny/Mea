@@ -32,12 +32,6 @@ public class GameTask extends BukkitRunnable {
         }
 
         if (plugin.getGameManager().getPlayersAmount() <= plugin.getGameManager().getDeathMatchPlayers()) {
-            dm--;
-
-            if (dm % 10 == 0 || dm <= 5) {
-                Utilities.sendMessage("&7Death match starts in &e" + dm + "&7 second(s).");
-            }
-
             if (dm == 0) {
                 plugin.getGameManager().getDeathMatchMap().getTeleportLocation().forEach(teleport -> {
                     Player player = teleport.getPlayer();
@@ -49,22 +43,29 @@ public class GameTask extends BukkitRunnable {
 
                 Bukkit.getOnlinePlayers().forEach(player -> {
                     if (!plugin.getGameManager().isPlayer(player)) {
-                        player.teleport(plugin.getGameManager().getDeathMatchMap().getCenter());
+                        Tasks.run(() -> player.teleport(plugin.getGameManager().getDeathMatchMap().getCenter()));
                     }
                 });
 
                 new DMTask(plugin);
                 plugin.getGameManager().setState(GameState.DM);
                 cancel();
+                return;
             }
-        }
 
-        seconds++;
+            if (dm % 10 == 0 || dm <= 5) {
+                Utilities.sendMessage("&7Teleport to Deathmatch area in &e" + dm + "&7 second(s).");
+            }
+
+            --dm;
+        }
 
         if (seconds == plugin.getChestManager().getRefillTime()) {
             plugin.getChestManager().refillChests();
             Utilities.sendMessage(CC.translate("&eAll chests have been refilled!"));
             Utilities.playSound(Sound.CHEST_OPEN);
         }
+
+        ++seconds;
     }
 }

@@ -78,7 +78,7 @@ public final class Mea extends JavaPlugin {
     public void onDisable() {
         try {
             for (Profile profile : profileManager.getAllData()) {
-                profileManager.removeProfile(profile);
+                profileManager.saveData(profile);
             }
 
             mongoManager.disconnect();

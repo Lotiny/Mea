@@ -82,7 +82,14 @@ public class GameMap {
     }
 
     public boolean vote(Player player) {
-        return !votedPlayers.add(player.getUniqueId());
+        UUID uuid = player.getUniqueId();
+        if (votedPlayers.contains(uuid)) {
+            votedPlayers.remove(uuid);
+            return false;
+        } else {
+            votedPlayers.add(uuid);
+            return true;
+        }
     }
 
     public int getScore() {

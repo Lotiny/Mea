@@ -20,18 +20,19 @@ public class StartTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        seconds--;
-
-        if (seconds % 10 == 0 || seconds <= 5) {
-            Utilities.sendMessage("&7Game starts in &e" + seconds + "&7 second(s).");
-        }
-
         if (seconds == 0) {
             Utilities.sendMessage("&eGame started!");
             Tasks.run(SitUtil::unsitAll);
             plugin.getGameManager().setState(GameState.GAME);
             new GameTask(plugin);
             cancel();
+            return;
         }
+
+        if (seconds % 10 == 0 || seconds <= 5) {
+            Utilities.sendMessage("&7Game starts in &e" + seconds + "&7 second(s).");
+        }
+
+        --seconds;
     }
 }

@@ -8,8 +8,10 @@ import me.lotiny.mea.assets.GameMap;
 import me.lotiny.mea.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 @UtilityClass
 public class VoteMenu {
@@ -23,15 +25,25 @@ public class VoteMenu {
                 return;
             }
 
-            menu.addButton(new SGButton(new ItemBuilder(Material.PAPER)
-                    .setName("&e" + map.getName())
-                    .toItemStack())
+            menu.addButton(new SGButton(getMapSlot(player, map))
                     .withListener((InventoryClickEvent event) -> {
                         plugin.getMapManager().voteMap(player, map.getId());
                         player.playSound(player.getLocation(), Sound.CLICK, 1, 1);
+                        player.closeInventory();
                     }));
         }
 
         player.openInventory(menu.getInventory());
+    }
+
+    private ItemStack getMapSlot(Player player, GameMap map) {
+        ItemBuilder item = new ItemBuilder(Material.PAPER);
+        item.setName("&e" + map.getName() + "&7: &a" + map.getScore());
+        if (map.getVotedPlayers().contains(player.getUniqueId())) {
+            item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+            item.addLoreLine("&a* Voted!");
+        }
+
+        return item.toItemStack();
     }
 }

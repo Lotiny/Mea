@@ -5,6 +5,7 @@ import me.lotiny.mea.assets.Teleport;
 import me.lotiny.mea.enums.GameState;
 import me.lotiny.mea.profile.Profile;
 import me.lotiny.mea.utils.Tasks;
+import me.lotiny.mea.utils.Utilities;
 import me.lotiny.mea.utils.sit.SitUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -45,6 +46,7 @@ public class TeleportTask extends BukkitRunnable {
                 profile.getStats().getGamePlayed().increase();
             }
         } else {
+            Utilities.sendMessage("&aTeleported all players successfully!");
             new StartTask(plugin);
             plugin.getGameManager().setState(GameState.START);
             cancel();

@@ -7,6 +7,7 @@ import me.lotiny.mea.profile.Profile;
 import me.lotiny.mea.tasks.VoteTask;
 import me.lotiny.mea.utils.CC;
 import me.lotiny.mea.utils.HotbarItem;
+import me.lotiny.mea.utils.menus.VoteMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -117,6 +118,23 @@ public class PlayerListener implements Listener {
         if (item.getItemMeta().getDisplayName().equals(CC.translate("&6Golden Head"))) {
             player.removePotionEffect(PotionEffectType.REGENERATION);
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 1));
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (plugin.getGameManager().getState() == GameState.VOTE) {
+            if (event.getAction().toString().startsWith("RIGHT_")) {
+                Player player = event.getPlayer();
+                ItemStack item = player.getItemInHand();
+                if (item == null) {
+                    return;
+                }
+
+                if (item.getType() == Material.PAPER) {
+                    VoteMenu.open(player);
+                }
+            }
         }
     }
 }

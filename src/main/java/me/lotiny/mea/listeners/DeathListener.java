@@ -3,6 +3,7 @@ package me.lotiny.mea.listeners;
 import me.lotiny.mea.Mea;
 import me.lotiny.mea.enums.PlayerState;
 import me.lotiny.mea.profile.Profile;
+import me.lotiny.mea.utils.Utilities;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,7 @@ public class DeathListener implements Listener {
             killerProfile.getStats().getKills().increase();
         }
 
+        player.getWorld().dropItemNaturally(player.getLocation().add(0.5, 0.5, 0.5), Utilities.getGoldenHead());
         profile.getStats().getDeaths().increase();
         profile.setState(PlayerState.SPEC);
     }
