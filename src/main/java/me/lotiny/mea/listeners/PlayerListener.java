@@ -61,7 +61,7 @@ public class PlayerListener implements Listener {
 
         plugin.getGameManager().getPlayers().remove(player.getUniqueId());
         plugin.getGameManager().getSpectators().remove(player.getUniqueId());
-        plugin.getProfileManager().saveData(profile);
+        plugin.getProfileManager().removeProfile(profile);
     }
 
     @EventHandler

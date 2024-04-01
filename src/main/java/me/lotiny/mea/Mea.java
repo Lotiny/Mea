@@ -20,9 +20,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @Getter
 public final class Mea extends JavaPlugin {
@@ -80,7 +78,7 @@ public final class Mea extends JavaPlugin {
     public void onDisable() {
         try {
             for (Profile profile : profileManager.getAllData()) {
-                profileManager.saveData(profile);
+                profileManager.removeProfile(profile);
             }
 
             mongoManager.disconnect();
